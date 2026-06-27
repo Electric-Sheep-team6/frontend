@@ -4,7 +4,7 @@
 
 | 画面名      | 概要                           |
 | -------- | ---------------------------- |
-| ログイン画面   | メールアドレスまたはSNSアカウントでログインする。   |
+| ログイン画面   | メールアドレスまたはgoogle,SNSアカウントでログインする。   |
 | 新規登録画面   | アカウントを作成する。                  |
 | ホーム画面    | タイムラインやAIからのおすすめ、思い出通知を表示する。 |
 | 投稿作成画面   | 写真・動画・音声・テキスト・感情を記録する。       |
@@ -62,7 +62,6 @@
 * AIおすすめカード
 * 今日の思い出
 * 投稿一覧
-* Bottom Navigation
 
 ---
 
@@ -272,3 +271,125 @@ SvelteKitのStoreを利用して状態管理を行う。
 | ファイルサイズ超過 | ファイルサイズが上限を超えています。         |
 
 エラーはSnackbarまたはダイアログで表示し、必要に応じて再試行ボタンを表示する。
+
+
+# 10. コンポーネント設計
+
+共通で利用するUIコンポーネントを定義する。
+
+## 共通コンポーネント
+
+* Header
+* Bottom Navigation
+* Button
+* Input
+* TextArea
+* Modal
+* Dialog
+* Snackbar
+* Loading Spinner
+* Emotion Selector
+* Image Picker
+* Audio Recorder
+* Post Card
+* AI Recommendation Card
+* Notification Card
+
+---
+
+# 11. API連携
+
+バックエンドとの通信仕様を整理する。
+( 仮で書いているのでバックエンド班に後ほど変更してもらう)
+
+| Method | Endpoint       | 内容      |
+| ------ | -------------- | ------- |
+| POST   | /auth/login    | ログイン    |
+| POST   | /auth/register | 新規登録    |
+| GET    | /posts         | 投稿一覧取得  |
+| POST   | /posts         | 投稿作成    |
+| GET    | /posts/{id}    | 投稿詳細取得  |
+| PUT    | /posts/{id}    | 投稿更新    |
+| DELETE | /posts/{id}    | 投稿削除    |
+| GET    | /search        | AI検索    |
+| GET    | /emotion       | 感情グラフ取得 |
+| GET    | /notifications | 通知取得    |
+
+---
+
+# 12. レスポンシブ対応
+
+対応デバイス
+
+* PC
+* タブレット
+* スマートフォン
+
+ブレークポイント
+
+* Mobile：〜767px
+* Tablet：768〜1023px
+* Desktop：1024px〜
+
+---
+
+# 13. ディレクトリ構成
+(仮で作っているため後ほど変更を行う)
+```
+src/
+├── lib/
+│   ├── api/
+│   ├── components/
+│   ├── stores/
+│   ├── types/
+│   ├── utils/
+│   └── constants/
+├── routes/
+├── app.html
+└── app.css
+```
+
+---
+
+# 14. 環境変数
+(仮で書いているのでバックエンド班に後ほど変更してもらう)
+
+| 変数名               | 用途         |
+| ----------------- | ---------- |
+| PUBLIC_API_URL    | APIのURL    |
+| PUBLIC_AI_API_URL | AI APIのURL |
+| PUBLIC_R2_URL     | メディア取得URL  |
+
+---
+
+# 15. 非機能要件
+
+* 初回表示：3秒以内
+* APIタイムアウト：30秒
+* アップロード中は進捗を表示
+* アクセシビリティを考慮する
+* ダークモード対応（任意）
+
+---
+
+# 16. 使用ライブラリ
+
+* SvelteKit
+* TypeScript
+* Tailwind CSS
+* TanStack Query（APIキャッシュ）
+* Zod（バリデーション）
+* Chart.js（感情グラフ）
+* Day.js（日付処理）
+
+---
+
+# 17. 今後追加予定
+
+* AIによる思い出検索
+* AI要約
+* 「○年前の今日」通知
+* 共有ルーム
+* エクスポート機能
+* オフライン対応
+
